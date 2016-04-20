@@ -2,11 +2,30 @@
 
 var didConfigModule = angular.module('myApp.view1', ['ngRoute'])
     .config(['$routeProvider', function($routeProvider) {
-        $routeProvider.when('/view1', {
-        templateUrl: 'view1/view1.html',
-        controller: 'View1Ctrl'
-    });
-}]);
+            $routeProvider.when('/view1', {
+            templateUrl: 'view1/view1.html',
+            controller: 'View1Ctrl'
+        });
+    }])
+    .factory("DidConfigService", ['$http', function($http) {
+        var service = {};
+
+        service.getAllDidInfos = function() {
+        };
+
+        service.getAgentsInfoForDid = function(did) {
+        };
+
+        service.assginAgentToDid = function(agent, did, callback) {
+        };
+
+        service.removeAgentFromDid = function(agent, did, callback) {
+        };
+
+        return service;
+    }]);
+
+
 
 
 var didsPanelCtrl = didConfigModule.controller('View1Ctrl', ['$scope', function($scope) {
