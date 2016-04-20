@@ -1,25 +1,36 @@
 <div class="dids_panel " ng-app="myApp.view1">
 
     <div class="dids_config_panel col-md-10 col-md-offset-1" np-controller="View1Ctrl">
-        <div class="row top_margin_10"  ng-repeat="did in dids">
-            <div class="single_did_panel col-md-10 col-md-offset-1">
-                <div class="single_did_panel_header row">
-                    <div class="col-md-6 col-md-offset-1"><h2>{{did.name}}</h2></div>
-                    <div class="col-md-5"><h2>{{did.local}}</h2></div>
+        <div class="row top_margin_10"  ng-repeat="did in dids" ng-init="init(did)" ng-controller="SingleDidConfigCtrl">
+            <div class="did_config_panel col-md-10 col-md-offset-1">
+                <div class="did_config_panel_header row">
+                    <div class="col-md-6 col-md-offset-1"><h2>{{didInfo.name}}</h2></div>
+                    <div class="col-md-5"><h2>{{didInfo.local}}</h2></div>
                 </div>
 
-                <div class="single_did_panel_agent col-md-10 col-md-offset-1" ng-repeat="agent in did.agents">
-                    <h4>{{agent.name}}</h4>
-                </div>
-
-                <div class="single_did_panel_action col-md-10 col-md-offset-1">
-                    <div class="col-md-1 col-md-offset-9">
-                        <button class="btn btn-primary">Assign Agents</button>
+                <div class="did_config_panel_assigned_agents col-md-10 col-md-offset-1" ng-repeat="agent in didInfo.assignedAgents">
+                    <div class="did_config_panel_assigned_agent row">
+                        <div class="col-md-2"><h4>{{agent.name}}</h4></div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-info" ng-click="removeAgent(agent)">Remove</button>
+                        </div>
                     </div>
-                    <div class="single_did_panel_assign_agents col-md-10 col-md-offset-1" ng-click="did.assigning=true">
-                        <div class="row">
-                            <div class="unassigned_agents col-md-1" ng-repeat="agent in did.unassigned">
-                                <button class="btn btn-info" ng-selected="agent.selected" ng-click="agent.selected=!agent.selected">{{agent.name}}</button>
+                </div>
+
+                <div>
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="col-md-1 col-md-offset-9">
+                            <button type="button" class="btn btn-primary" ng-click="didInfo.assigning = !didInfo.assigning">Assign Agents</button>
+                        </div>
+                    </div>
+
+                    <div uib-collapse="didInfo.assigning">
+                        <div class="did_config_panel_unassigned_agents col-md-10 col-md-offset-1" ng-repeat="agent in didInfo.unassignedAgents">
+                            <div class="did_config_panel_unassigned_agent row">
+                                <div class="col-md-2"><h4>{{agent.name}}</h4></div>
+                                <div class="col-md-2">
+                                    <button type="button" class="btn btn-info" ng-click="assignAgent(agent)">Assign</button>
+                                </div>
                             </div>
                         </div>
                     </div>
